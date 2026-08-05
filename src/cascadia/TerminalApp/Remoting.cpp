@@ -40,6 +40,11 @@ namespace winrt::TerminalApp::implementation
         return winrt::to_hstring(_parsed.GetTargetWindow());
     }
 
+    winrt::hstring CommandlineArgs::FocusBySessionId() const
+    {
+        return winrt::to_hstring(_parsed.GetFocusBySessionId());
+    }
+
     void CommandlineArgs::Commandline(const winrt::array_view<const winrt::hstring>& value)
     {
         _args = { value.begin(), value.end() };

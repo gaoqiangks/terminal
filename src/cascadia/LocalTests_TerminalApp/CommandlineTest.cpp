@@ -58,6 +58,7 @@ namespace TerminalAppLocalTests
         TEST_METHOD(ParseSwapPaneArgs);
         TEST_METHOD(ParseArgumentsWithParsingTerminators);
         TEST_METHOD(ParseFocusPaneArgs);
+        TEST_METHOD(ParseFocusBySessionId);
 
         TEST_METHOD(ParseNoCommandIsNewTab);
 
@@ -1359,6 +1360,16 @@ namespace TerminalAppLocalTests
             VERIFY_IS_NOT_NULL(myArgs);
             VERIFY_ARE_EQUAL(FocusDirection::Right, myArgs.Direction());
         }
+    }
+
+    void CommandlineTest::ParseFocusBySessionId()
+    {
+        AppCommandlineArgs appArgs{};
+        std::vector<const wchar_t*> rawCommands{ L"wt.exe", L"--focus-by-sid", L"01234567-89ab-cdef-0123-456789abcdef" };
+        _buildCommandlinesHelper(appArgs, 1u, rawCommands);
+
+        VERIFY_ARE_EQUAL("01234567-89ab-cdef-0123-456789abcdef", appArgs.GetFocusBySessionId());
+        VERIFY_ARE_EQUAL(0u, appArgs._startupActions.size());
     }
 
     void CommandlineTest::ParseFocusPaneArgs()

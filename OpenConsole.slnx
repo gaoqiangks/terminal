@@ -33,7 +33,6 @@
       <Build Solution="*|ARM64" Project="false" />
       <Build Solution="*|x86" Project="false" />
       <Build Solution="AuditMode|x64" Project="false" />
-      <Build Solution="Debug|x64" Project="false" />
       <Build Solution="Release|x64" Project="false" />
     </Project>
     <Project Path="src/host/ft_host/Host.FeatureTests.vcxproj" Id="8cdb8850-7484-4ec7-b45b-181f85b2ee54">
@@ -880,7 +879,12 @@
       <BuildType Solution="AuditMode|x64" Project="Release" />
       <BuildType Solution="AuditMode|x86" Project="Release" />
       <Platform Solution="*|Any CPU" Project="Win32" />
-      <Build Project="false" />
+      <Build Solution="*|Any CPU" Project="false" />
+      <Build Solution="*|ARM64" Project="false" />
+      <Build Solution="*|x86" Project="false" />
+      <Build Solution="AuditMode|x64" Project="false" />
+      <Build Solution="Fuzzing|x64" Project="false" />
+      <Build Solution="Release|x64" Project="false" />
     </Project>
     <Project Path="src/tools/buffersize/buffersize.vcxproj" Id="ed82003f-fc5d-4e94-8b47-f480018ed064">
       <BuildType Solution="AuditMode|ARM64" Project="Release" />
@@ -923,7 +927,12 @@
       <BuildType Solution="AuditMode|x64" Project="Release" />
       <BuildType Solution="AuditMode|x86" Project="Release" />
       <Platform Solution="*|Any CPU" Project="Win32" />
-      <Build Project="false" />
+      <Build Solution="*|Any CPU" Project="false" />
+      <Build Solution="*|ARM64" Project="false" />
+      <Build Solution="*|x86" Project="false" />
+      <Build Solution="AuditMode|x64" Project="false" />
+      <Build Solution="Fuzzing|x64" Project="false" />
+      <Build Solution="Release|x64" Project="false" />
     </Project>
     <Project Path="src/tools/echokey/ConEchoKey.vcxproj" Id="814cbeee-894e-4327-a6e1-740504850098">
       <BuildType Solution="AuditMode|ARM64" Project="Release" />
@@ -969,7 +978,12 @@
       <BuildType Solution="AuditMode|x64" Project="Release" />
       <BuildType Solution="AuditMode|x86" Project="Release" />
       <Platform Solution="*|Any CPU" Project="Win32" />
-      <Build Project="false" />
+      <Build Solution="*|Any CPU" Project="false" />
+      <Build Solution="*|ARM64" Project="false" />
+      <Build Solution="*|x86" Project="false" />
+      <Build Solution="AuditMode|x64" Project="false" />
+      <Build Solution="Fuzzing|x64" Project="false" />
+      <Build Solution="Release|x64" Project="false" />
     </Project>
     <Project Path="src/tools/scratch/Scratch.vcxproj" Id="ed82003f-fc5d-4e94-8b36-f480018ed064">
       <BuildType Solution="AuditMode|ARM64" Project="Release" />

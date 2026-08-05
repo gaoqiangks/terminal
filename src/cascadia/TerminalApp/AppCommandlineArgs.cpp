@@ -75,7 +75,7 @@ int AppCommandlineArgs::ParseCommand(const Commandline& command)
 
         // If we parsed the commandline, and _no_ subcommands were provided, try
         // parse the remaining suffix as a "new-tab" command.
-        if (_noCommandsProvided())
+        if (_noCommandsProvided() && _focusBySessionId.empty())
         {
             _newTabCommand.subcommand->parse(args);
             remainingParams = _newTabCommand.subcommand->remaining_size();
@@ -200,6 +200,10 @@ void AppCommandlineArgs::_buildParser()
     _app.add_option("-s,--saved",
                     _loadPersistedLayoutIdx,
                     RS_A(L"CmdSavedLayoutArgDesc"));
+
+    _app.add_option("--focus-by-sid",
+                    _focusBySessionId,
+                    "Focus the tab containing the session with the specified WT_SESSION ID");
 
     // Subcommands
     _buildNewTabParser();
@@ -1012,6 +1016,13 @@ bool AppCommandlineArgs::ShouldExitEarly() const noexcept
 // - <none>
 void AppCommandlineArgs::ValidateStartupCommands()
 {
+    // --focus-by-sid is a request to an existing Terminal instance. It must not
+    // create a default tab merely because it has no startup actions.
+    if (!_focusBySessionId.empty())
+    {
+        return;
+    }
+
     // If we only have a single x-save command, then set our target to the
     // current terminal window. This will prevent us from spawning a new
     // window just to save the commandline.
@@ -1193,9 +1204,14 @@ void AppCommandlineArgs::FullResetState()
     _shouldExitEarly = false;
 
     _windowTarget = {};
+    _focusBySessionId = {};
 }
-
 std::string_view AppCommandlineArgs::GetTargetWindow() const noexcept
 {
     return _windowTarget;
+}
+
+std::string_view AppCommandlineArgs::GetFocusBySessionId() const noexcept
+{
+    return _focusBySessionId;
 }

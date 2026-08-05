@@ -79,6 +79,7 @@ namespace TerminalApp
 
         void IdentifyWindow();
         Boolean FocusTab(TerminalApp.Tab tab);
+        Boolean FocusTabBySessionId(Guid sessionId);
         void SetPersistedLayoutIdx(UInt32 idx);
         void RequestExitFullscreen();
 

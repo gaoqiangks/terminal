@@ -799,6 +799,32 @@ void WindowEmperor::_dispatchCommandline(winrt::TerminalApp::CommandlineArgs arg
         return;
     }
 
+    if (const auto sessionIdText = args.FocusBySessionId(); !sessionIdText.empty())
+    {
+        try
+        {
+            const winrt::guid sessionId{ sessionIdText };
+            for (const auto& w : _windows)
+            {
+                if (w->Logic().FocusTabBySessionId(sessionId))
+                {
+                    winrt::TerminalApp::SummonWindowBehavior summonArgs;
+                    summonArgs.MoveToCurrentDesktop(false);
+                    summonArgs.DropdownDuration(0);
+                    summonArgs.ToMonitor(winrt::TerminalApp::MonitorBehavior::InPlace);
+                    summonArgs.ToggleVisibility(false);
+                    w->HandleSummon(std::move(summonArgs));
+                    return;
+                }
+            }
+        }
+        catch (...)
+        {
+            _showMessageBox(L"--focus-by-sid requires a valid session GUID.", true);
+        }
+        return;
+    }
+
     const auto parsedTarget = args.TargetWindow();
     WindowingMode windowingBehavior = WindowingMode::UseNew;
     uint64_t windowId = 0;

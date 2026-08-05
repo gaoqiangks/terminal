@@ -221,6 +221,7 @@ namespace winrt::TerminalApp::implementation
         void OpenSettingsUI();
         void WindowActivated(const bool activated);
         bool FocusTab(const winrt::TerminalApp::Tab& tab);
+        bool FocusTabBySessionId(const winrt::guid& sessionId);
 
         bool OnDirectKeyEvent(const uint32_t vkey, const uint8_t scanCode, const bool down);
 

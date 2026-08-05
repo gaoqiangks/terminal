@@ -96,6 +96,7 @@ namespace winrt::TerminalApp::implementation
         bool AutoHideWindow();
         void IdentifyWindow();
         bool FocusTab(const winrt::TerminalApp::Tab& tab);
+        bool FocusTabBySessionId(const winrt::guid& sessionId);
 
         std::optional<uint32_t> LoadPersistedLayoutIdx() const;
         winrt::Microsoft::Terminal::Settings::Model::WindowLayout LoadPersistedLayout();

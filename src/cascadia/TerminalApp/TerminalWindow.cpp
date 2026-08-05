@@ -1243,6 +1243,11 @@ namespace winrt::TerminalApp::implementation
         return false;
     }
 
+    bool TerminalWindow::FocusTabBySessionId(const winrt::guid& sessionId)
+    {
+        return _root && _root->FocusTabBySessionId(sessionId);
+    }
+
     void TerminalWindow::WindowName(const winrt::hstring& name)
     {
         const auto oldIsQuakeMode = _WindowProperties->IsQuakeWindow();

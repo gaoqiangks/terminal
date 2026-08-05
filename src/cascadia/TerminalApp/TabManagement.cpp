@@ -1320,6 +1320,35 @@ namespace winrt::TerminalApp::implementation
         return false;
     }
 
+    bool TerminalPage::FocusTabBySessionId(const winrt::guid& sessionId)
+    {
+        for (uint32_t tabIndex = 0; tabIndex < _tabs.Size(); ++tabIndex)
+        {
+            const auto tab{ _GetTabImpl(_tabs.GetAt(tabIndex)) };
+            if (!tab)
+            {
+                continue;
+            }
+
+            const auto rootPane{ tab->GetRootPane() };
+            const bool found = rootPane && rootPane->WalkTree([&](const auto& pane) {
+                if (const auto content{ pane->GetContent().try_as<winrt::TerminalApp::TerminalPaneContent>() })
+                {
+                    const auto connection{ content.GetTermControl().Connection() };
+                    return connection && connection.SessionId() == sessionId;
+                }
+                return false;
+            });
+
+            if (found)
+            {
+                _SelectTab(tabIndex);
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Method Description:
     // - Sends a desktop toast notification with the given title and body.
     //   When the toast is activated (clicked), the window is summoned and
